@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/Jatin048/flask-app.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 sh '''
