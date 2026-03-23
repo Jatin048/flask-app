@@ -7,6 +7,7 @@ pipeline {
             steps {
                 sh '''
                 python3 -m venv venv
+                chmod -R 755 venv
                 ./venv/bin/pip install --upgrade pip
                 ./venv/bin/pip install -r requirements.txt
                 '''
