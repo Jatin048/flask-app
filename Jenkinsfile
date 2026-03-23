@@ -4,23 +4,22 @@ pipeline {
     stages {
 
         stage('Install Dependencies') {
-            steps {
-                sh '''
-                python3 -m venv venv
-                chmod -R 755 venv
-                ./venv/bin/pip install --upgrade pip
-                ./venv/bin/pip install -r requirements.txt
-                '''
-            }
-        }
+    steps {
+        sh '''
+        python3 -m venv venv
+        python3 -m venv --upgrade-deps venv
+        venv/bin/python -m pip install -r requirements.txt
+        '''
+    }
+}
 
-        stage('Run Tests') {
-            steps {
-                sh '''
-                ./venv/bin/pytest
-                '''
-            }
-        }
+stage('Run Tests') {
+    steps {
+        sh '''
+        venv/bin/python -m pytest
+        '''
+    }
+}
 
         stage('Build Docker Image') {
             steps {
