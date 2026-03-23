@@ -6,8 +6,9 @@ pipeline {
         stage('Install Dependencies') {
     steps {
         sh '''
+        rm -rf venv
         python3 -m venv venv
-        venv/bin/python -m pip install --upgrade pip setuptools wheel
+        venv/bin/python -m ensurepip --upgrade
         venv/bin/python -m pip install -r requirements.txt
         '''
     }
