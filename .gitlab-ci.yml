@@ -1,0 +1,18 @@
+stages:
+  - build
+
+build_job:
+  stage: build
+  image: python:3.10
+  services:
+    - docker:dind
+
+  variables:
+    DOCKER_TLS_CERTDIR: ""
+
+  script:
+    - python -m pip install --upgrade pip
+    - pip install -r requirements.txt
+    - pip install pytest
+    - pytest -v
+    - docker build -t flask-benchmark .
