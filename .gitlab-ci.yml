@@ -4,11 +4,16 @@ stages:
 build_job:
   stage: build
   image: python:3.10
+
   services:
     - docker:dind
 
   variables:
     DOCKER_TLS_CERTDIR: ""
+
+  before_script:
+    - apt-get update
+    - apt-get install -y docker.io
 
   script:
     - python -m pip install --upgrade pip
