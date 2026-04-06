@@ -6,9 +6,11 @@ build_job:
   image: python:3.10
 
   services:
-    - docker:dind
+    - name: docker:dind
+      command: ["--host=tcp://0.0.0.0:2375", "--tls=false"]
 
   variables:
+    DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
 
   before_script:
@@ -20,4 +22,5 @@ build_job:
     - pip install -r requirements.txt
     - pip install pytest
     - pytest -v
+    - docker info
     - docker build -t flask-benchmark .
